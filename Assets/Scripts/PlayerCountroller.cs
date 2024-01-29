@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerCountroller : MonoBehaviour
 {
     public float runSpeed = 5;
+    public float jumpSpeed = 3;
+
     private Rigidbody2D myRigidBody;
     private Animator myAni;
+    private BoxCollider2D myFeet;
+    private bool isGrounded;
     // Start is called before the first frame update
     void Start()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
         myAni = GetComponent<Animator>();
+        myFeet = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -19,9 +25,16 @@ public class PlayerCountroller : MonoBehaviour
     {
         Flip();
         Run();
+        Jump();
+        CheckGrounded();
         
     }
+    void CheckGrounded()
+    {
+        //检测是否是地面
+        isGrounded = myFeet.IsTouchingLayers(LayerMask.GetMask("Ground"));
 
+    }
     void Flip()
     {
         //翻转精灵，只有移动时翻转
@@ -54,7 +67,13 @@ public class PlayerCountroller : MonoBehaviour
 
     void Jump()
     {
-        
+        if (Input.GetButtonDown("Jump")&&isGrounded)
+        {
+            Vector2 jumpVel = new Vector2(0.0f, jumpSpeed );
+            myRigidBody.velocity = Vector2.up * jumpVel;
+        }
+        bool isJump = myRigidBody.velocity.y > 0.0f;
+        myAni.SetBool("IsJump", isJump);
     }
 
 }
