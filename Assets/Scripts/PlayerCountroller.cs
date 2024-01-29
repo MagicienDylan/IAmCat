@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class PlayerCountroller : MonoBehaviour
 {
     public float runSpeed = 5;
-    public float jumpSpeed = 3;
+    public float jumpSpeed = 5;
 
     private Rigidbody2D myRigidBody;
     private Animator myAni;
@@ -26,6 +26,7 @@ public class PlayerCountroller : MonoBehaviour
         Flip();
         Run();
         Jump();
+        Fall();
         CheckGrounded();
         
     }
@@ -61,7 +62,7 @@ public class PlayerCountroller : MonoBehaviour
         Vector2 playerVel = new Vector2(moverDir * runSpeed, myRigidBody.velocity.y);
         myRigidBody.velocity = playerVel;
 
-        bool HaveHorizontapSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
+        bool HaveHorizontapSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon && isGrounded;
         myAni.SetBool("IsRun",HaveHorizontapSpeed);
     }
 
@@ -75,5 +76,9 @@ public class PlayerCountroller : MonoBehaviour
         bool isJump = myRigidBody.velocity.y > 0.0f;
         myAni.SetBool("IsJump", isJump);
     }
-
+    void Fall()
+    {
+        bool isFall = myRigidBody.velocity.y < 0 && (isGrounded == false);
+        myAni.SetBool("IsFall", isFall);
+    }
 }
