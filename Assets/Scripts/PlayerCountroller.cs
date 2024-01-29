@@ -7,6 +7,7 @@ public class PlayerCountroller : MonoBehaviour
 {
     public float runSpeed = 5;
     public float jumpSpeed = 5;
+    public float fallSpeed = -2;
 
     private Rigidbody2D myRigidBody;
     private Animator myAni;
@@ -34,6 +35,7 @@ public class PlayerCountroller : MonoBehaviour
     {
         //检测是否是地面
         isGrounded = myFeet.IsTouchingLayers(LayerMask.GetMask("Ground"));
+        myAni.SetBool("IsGrounded", isGrounded);
 
     }
     void Flip()
@@ -78,7 +80,7 @@ public class PlayerCountroller : MonoBehaviour
     }
     void Fall()
     {
-        bool isFall = myRigidBody.velocity.y < 0 && (isGrounded == false);
+        bool isFall = myRigidBody.velocity.y < fallSpeed && (isGrounded == false);
         myAni.SetBool("IsFall", isFall);
     }
 }
