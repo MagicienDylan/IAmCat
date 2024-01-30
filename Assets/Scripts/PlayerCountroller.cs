@@ -24,11 +24,12 @@ public class PlayerCountroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckGrounded();
         Flip();
         Run();
         Jump();
         Fall();
-        CheckGrounded();
+        
         
     }
     void CheckGrounded()
