@@ -71,17 +71,21 @@ public class PlayerCountroller : MonoBehaviour
 
     void Jump()
     {
-        if (Input.GetButtonDown("Jump")&&isGrounded)
+        if (Input.GetButtonDown("Jump"))
         {
-            Vector2 jumpVel = new Vector2(0.0f, jumpSpeed );
-            myRigidBody.velocity = Vector2.up * jumpVel;
+            if (isGrounded)
+            {
+                Vector2 jumpVel = new Vector2(0.0f, jumpSpeed);
+                myRigidBody.velocity = Vector2.up * jumpVel;
+            }
+            
         }
         bool isJump = myRigidBody.velocity.y > 0.0f;
         myAni.SetBool("IsJump", isJump);
     }
     void Fall()
     {
-        bool isFall = myRigidBody.velocity.y < fallSpeed && (isGrounded == false);
+        bool isFall = myRigidBody.velocity.y < fallSpeed;
         myAni.SetBool("IsFall", isFall);
     }
 }
