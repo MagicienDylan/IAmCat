@@ -8,11 +8,13 @@ public class PlayerCountroller : MonoBehaviour
     public float runSpeed = 5;
     public float jumpSpeed = 5;
     public float fallSpeed = -2;
+    public float doubleJumpSpeed = 3;
 
     private Rigidbody2D myRigidBody;
     private Animator myAni;
     private BoxCollider2D myFeet;
     private bool isGrounded;
+    private bool canDoubleJump;
     // Start is called before the first frame update
     void Start()
     {
@@ -77,7 +79,21 @@ public class PlayerCountroller : MonoBehaviour
             {
                 Vector2 jumpVel = new Vector2(0.0f, jumpSpeed);
                 myRigidBody.velocity = Vector2.up * jumpVel;
+                canDoubleJump = true;
             }
+            else
+            {
+                if (canDoubleJump)
+                {
+                    Vector2 doubleJumpVel = new Vector2(0.0f, doubleJumpSpeed);
+                    myRigidBody.velocity = Vector2.up * doubleJumpVel;
+                    canDoubleJump = false;
+                }
+
+            }
+
+                
+
             
         }
         bool isJump = myRigidBody.velocity.y > 0.0f;
