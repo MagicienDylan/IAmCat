@@ -6,7 +6,8 @@ public class PlayerAttack : MonoBehaviour
 {
     public float Atk;
 
-    private 
+    private Animator myAttackAni;
+    private PolygonCollider2D attackCollider;
     // Start is called before the first frame update
     void Start()
     {

@@ -15,6 +15,7 @@ public class PlayerCountroller : MonoBehaviour
     private BoxCollider2D myFeet;
     private bool isGrounded;
     private bool canDoubleJump;
+    private bool IsAttack;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +32,7 @@ public class PlayerCountroller : MonoBehaviour
         Run();
         Jump();
         Fall();
-        
+        Attack()''
         
     }
     void CheckGrounded()
@@ -103,5 +104,10 @@ public class PlayerCountroller : MonoBehaviour
     {
         bool isFall = myRigidBody.velocity.y < fallSpeed;
         myAni.SetBool("IsFall", isFall);
+    }
+
+    void Attack()
+    {
+        
     }
 }
