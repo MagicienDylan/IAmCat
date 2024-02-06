@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 public class PlayerCountroller : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerCountroller : MonoBehaviour
     public float jumpSpeed = 5;
     public float fallSpeed = -2;
     public float doubleJumpSpeed = 3;
+    public float attackSppeed = 2;//攻击时移动的补偿速度
 
     private Rigidbody2D myRigidBody;
     private Animator myAni;
@@ -32,8 +34,10 @@ public class PlayerCountroller : MonoBehaviour
         Run();
         Jump();
         Fall();
-        Attack()''
-        
+        Attack();
+  
+
+
     }
     void CheckGrounded()
     {
@@ -44,15 +48,15 @@ public class PlayerCountroller : MonoBehaviour
     }
     void Flip()
     {
-        //翻转精灵，只有移动时翻转
+        //翻转预制体，只有移动时翻转
         bool HaveHorizontapSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
         if (HaveHorizontapSpeed)
         {
-            if (myRigidBody.velocity.x > 0.1f)
+            if (myRigidBody.velocity.x > 0.0f)
             {
                 transform.localRotation = Quaternion.Euler(0, 0, 0);
             }
-            else if (myRigidBody.velocity.x < -0.1f)
+            else if (myRigidBody.velocity.x < -0.0f)
             {
                 transform.localRotation = Quaternion.Euler(0, 180, 0);
             }
@@ -62,14 +66,19 @@ public class PlayerCountroller : MonoBehaviour
 
     void Run()
     {
-        //获取水平轴的输入方向
-        float moverDir = Input.GetAxis("Horizontal");
-        //创建新的移动向量，水平移动时y轴速度保持不变
-        Vector2 playerVel = new Vector2(moverDir * runSpeed, myRigidBody.velocity.y);
-        myRigidBody.velocity = playerVel;
+        if (IsAttack == false)
+        {
+            //获取水平轴的输入方向
+            float moverDir = Input.GetAxis("Horizontal");
+            //创建新的移动向量，水平移动时y轴速度保持不变
+            Vector2 playerVel = new Vector2(moverDir * runSpeed, myRigidBody.velocity.y);
+            myRigidBody.velocity = playerVel;
 
-        bool HaveHorizontapSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon && isGrounded;
-        myAni.SetBool("IsRun",HaveHorizontapSpeed);
+            bool HaveHorizontapSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon && isGrounded;
+            myAni.SetBool("IsRun", HaveHorizontapSpeed);
+        }
+
+
     }
 
     void Jump()
@@ -108,6 +117,26 @@ public class PlayerCountroller : MonoBehaviour
 
     void Attack()
     {
+        //点击space键进行attack
+        if (Input.GetKeyDown(KeyCode.Space)&&(IsAttack == false))
+        {
+            IsAttack = true;
+            myAni.SetTrigger("NormalAttack");
+            myRigidBody.velocity = new Vector2(transform.localPosition.x*attackSppeed, 0.0f);
+
+            if (transform.localRotation == Quaternion.Euler(0, 0, 0))//向右
+            {
+                myRigidBody.velocity = new Vector2(attackSppeed, myRigidBody.velocity.y);
+            }
+            else if (transform.localRotation == Quaternion.Euler(0, -180, 0)|| transform.localRotation == Quaternion.Euler(0, 180, 0))//向左
+            {
+                myRigidBody.velocity = new Vector2(-attackSppeed, myRigidBody.velocity.y);
+            }
+        }
         
+    }
+    void AttackOver()
+    {
+        IsAttack = false;
     }
 }
