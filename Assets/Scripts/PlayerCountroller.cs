@@ -52,11 +52,11 @@ public class PlayerCountroller : MonoBehaviour
         bool HaveHorizontapSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
         if (HaveHorizontapSpeed)
         {
-            if (myRigidBody.velocity.x > 0.0f)
+            if (myRigidBody.velocity.x > 0.1f)
             {
                 transform.localRotation = Quaternion.Euler(0, 0, 0);
             }
-            else if (myRigidBody.velocity.x < -0.0f)
+            else if (myRigidBody.velocity.x < -0.1f)
             {
                 transform.localRotation = Quaternion.Euler(0, 180, 0);
             }
@@ -138,5 +138,21 @@ public class PlayerCountroller : MonoBehaviour
     void AttackOver()
     {
         IsAttack = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            //敌人进入攻击范围时，敌人受伤
+            if (transform.localRotation == Quaternion.Euler(0, 0, 0))//向右击打
+            {
+                other.GetComponent<Enemy>().GetHit(new Vector2(1, 0));
+            }
+            if (transform.localRotation == Quaternion.Euler(0, -180, 0))//向右击打
+            {
+                other.GetComponent<Enemy>().GetHit(new Vector2(-1, 0));
+            }
+        }
     }
 }

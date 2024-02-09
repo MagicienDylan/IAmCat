@@ -50,14 +50,11 @@ AnimatorStateMachine:
     m_State: {fileID: -8721607529356210961}
     m_Position: {x: 510, y: -410, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 8354544822914965765}
-    m_Position: {x: 1100, y: 110, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: 4757934771868023243}
-    m_Position: {x: 1130, y: 180, z: 0}
+    m_Position: {x: 60, y: 230, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8074246768135042069}
-    m_Position: {x: 1170, y: 240, z: 0}
+    m_Position: {x: 100, y: 290, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: -7839774647978310610}
@@ -262,6 +259,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: NormalAttack
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: Hit
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -645,32 +648,6 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 8f0b2ef1b9b9cd6429c12ae0abb0d7a2, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &8354544822914965765
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerHit
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 258afdfba6181974fbba6e4fc1771802, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
