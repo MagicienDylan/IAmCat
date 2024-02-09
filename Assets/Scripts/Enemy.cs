@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     private AnimatorStateInfo info;//获取动画进度
 
     private Animator animator;
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D Enemyrigidbody;
 
     
     // Start is called before the first frame update
@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     {
         //获取动画进度和刚体
         animator = transform.GetComponent<Animator>();
-        rigidbody = transform.GetComponent<Rigidbody2D>();
+        Enemyrigidbody = transform.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -27,9 +27,9 @@ public class Enemy : MonoBehaviour
         info = animator.GetCurrentAnimatorStateInfo(0);
         if(isHit)
         {
-            rigidbody.velocity = direction * speed;
+            Enemyrigidbody.velocity = direction * speed;
             
-            if (info.normalizedTime >= 0.6f)
+            if (info.normalizedTime >= 1f)
             {
                 isHit = false;
                 //在动画播放到0.6s时结束受击状态
@@ -37,12 +37,13 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void GetHit(Vector2 dirction)
+    public void GetHit(Vector2 Hitdirction)
     {
-        //将敌人方向朝向伤害来源方向
-        transform.localScale =new Vector3(-direction.x, 1, 1);
-        isHit = true;
-        this.direction = dirction;
         animator.SetTrigger("Hit");
+        //将敌人方向朝向伤害来源方向
+        transform.localScale =new Vector3(-Hitdirction.x*transform.localScale .x, transform .localScale .y, transform.localScale.z);
+        isHit = true;
+        this.direction = Hitdirction;
+        
     }
 }
