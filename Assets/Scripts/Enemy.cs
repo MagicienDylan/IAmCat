@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed;//敌人击退的速度
+    public float speed=3;//敌人击退的速度
     private Vector2 direction;//敌人被击退的方向
     private bool isHit;//是否受击
     private AnimatorStateInfo info;//获取动画进度

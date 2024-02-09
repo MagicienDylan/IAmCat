@@ -52,11 +52,11 @@ public class PlayerCountroller : MonoBehaviour
         bool HaveHorizontapSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
         if (HaveHorizontapSpeed)
         {
-            if (myRigidBody.velocity.x > 0.0f)
+            if (myRigidBody.velocity.x > 0.1f)
             {
                 transform.localRotation = Quaternion.Euler(0, 0, 0);
             }
-            else if (myRigidBody.velocity.x < -0.0f)
+            else if (myRigidBody.velocity.x < -0.1f)
             {
                 transform.localRotation = Quaternion.Euler(0, 180, 0);
             }
