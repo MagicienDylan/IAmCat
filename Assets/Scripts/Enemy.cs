@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public int health = 10;
+    public int damage;
+
     public float speed=3;//敌人击退的速度
     private Vector2 direction;//敌人被击退的方向
     private bool isHit;//是否受击
@@ -24,6 +27,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health <= 0)
+        {
+            //死亡后卸载物体
+            Destroy(gameObject);
+        }
         info = animator.GetCurrentAnimatorStateInfo(0);
         if(isHit)
         {
@@ -44,6 +52,12 @@ public class Enemy : MonoBehaviour
         transform.localScale =new Vector3(-Hitdirction.x*transform.localScale .x, transform .localScale .y, transform.localScale.z);
         isHit = true;
         this.direction = Hitdirction;
+        //获取碰撞体父物体的信息
         
+    }
+
+    public void TakeDamage(int damage)
+    { 
+        health -= damage;
     }
 }

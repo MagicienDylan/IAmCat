@@ -11,6 +11,7 @@ public class PlayerCountroller : MonoBehaviour
     public float fallSpeed = -2;
     public float doubleJumpSpeed = 3;
     public float attackSppeed = 2;//攻击时移动的补偿速度
+    public int atk = 3;
 
     private Rigidbody2D myRigidBody;
     private Animator myAni;
@@ -153,6 +154,8 @@ public class PlayerCountroller : MonoBehaviour
             {
                 other.GetComponent<Enemy>().GetHit(new Vector2(-1, 0));
             }
+            //给敌人减血
+            other.GetComponent<Enemy>().TakeDamage(atk);
         }
     }
 }
