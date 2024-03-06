@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public int health = 10;
     public int damage;
+    public GameObject blood;
 
     public float speed=3;//敌人击退的速度
     private Vector2 direction;//敌人被击退的方向
@@ -60,12 +61,15 @@ public class Enemy : MonoBehaviour
         this.direction = Hitdirction;
         //获取碰撞体父物体的信息
         
+        
     }
 
     public void TakeDamage(int damage)
     { 
         health -= damage;
         FlashColor(0.1f);
+        Instantiate(blood, this.transform.position, Quaternion.identity);
+        //生成粒子特效
     }
 
     void FlashColor(float time)//传入闪烁的时间
