@@ -67,7 +67,7 @@ public class PlayerCountroller : MonoBehaviour
 
     void Run()
     {
-        if (IsAttack == false)
+        if (IsAttack == false)//不允许在攻击中进行移动
         {
             //获取水平轴的输入方向
             float moverDir = Input.GetAxis("Horizontal");

@@ -12,20 +12,26 @@ public class Enemy : MonoBehaviour
     private bool isHit;//是否受击
     private AnimatorStateInfo info;//获取动画进度
 
+
     private Animator animator;
     private Rigidbody2D Enemyrigidbody;
 
-    
+    private SpriteRenderer sr;
+    private Color originalColor;//记录精灵原始的颜色，用于改变颜色
+
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         //获取动画进度和刚体
         animator = transform.GetComponent<Animator>();
         Enemyrigidbody = transform.GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();//获取到原始的组件
+        originalColor = sr.color;
+
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         if (health <= 0)
         {
@@ -59,5 +65,18 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damage)
     { 
         health -= damage;
+        FlashColor(0.1f);
     }
+
+    void FlashColor(float time)//传入闪烁的时间
+    {
+        sr.color = Color.red;
+        //延迟一点时间后重置颜色为初始状态
+        Invoke("ResetColor", time);
+    }
+    void ResetColor()
+    {
+        sr.color = originalColor;
+    }
+
 }
