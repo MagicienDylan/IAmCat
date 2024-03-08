@@ -6,22 +6,32 @@ using UnityEngine;
 public class CameraControl : MonoBehaviour
 {
     public Transform targetObject;
-    Vector3 vector;
-    // Start is called before the first frame update
+    public float smoothing = 0.1f;
+
     void Start()
     {
-        vector = transform.position - targetObject.position;
+        
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        ToFollow();
+        
+    }
+    private void LateUpdate()
+    {
+        if (targetObject != null) { ToFollow(); }
+        
     }
 
     void ToFollow()
     {
-        transform.position = targetObject.position + vector;
+        if (transform.position != targetObject.position)
+        {
+            Vector3 targetPos = targetObject.position;
+            transform.position = Vector3.Lerp(transform.position, targetPos,smoothing);
+        }
+        //transform.position = targetObject.position + vector;
     }
 }
