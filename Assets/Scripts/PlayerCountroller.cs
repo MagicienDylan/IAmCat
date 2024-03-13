@@ -35,7 +35,7 @@ public class PlayerCountroller : MonoBehaviour
         Run();
         Jump();
         Fall();
-        Attack();
+        //Attack();
   
 
 
@@ -116,10 +116,10 @@ public class PlayerCountroller : MonoBehaviour
         myAni.SetBool("IsFall", isFall);
     }
 
-    void Attack()
+    public void Attack()
     {
-        //点击space键进行attack
-        if (Input.GetKeyDown(KeyCode.Space)&&(IsAttack == false))
+        //点击交互按钮进行attack
+        if (IsAttack == false)
         {
             IsAttack = true;
             myAni.SetTrigger("NormalAttack");
